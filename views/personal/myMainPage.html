@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的主页</title>
+
+</head>
+<body>
+    <div id="app">
+        <!--header-->
+        <app-header></app-header>
+        <div class="container">
+            <!--picture-->
+            <app-picture></app-picture>
+            <!--nav-->
+            <app-main-nav :user="userInfo"></app-main-nav>
+            <!--main-->
+            <div class="main-content">
+                <section class="left">
+
+                    <div class="info-card">
+                        <div class="info-card-head">
+                            <h3>公钥查找</h3>
+                        </div>
+                        <div class="info-card-body">
+                            <div class="form-search">
+                                <input type="text" placeholder="输入用户ID/用户名查找">
+                                <button class="r-btn r-btn-blue r-btn-s">查找</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-head">
+                            <h3>个人资料</h3>
+                            <a href="#">修改邮箱/密码</a>
+                        </div>
+                        <div class="info-card-body">
+                            <Form :label-width="110" v-if="current === 0">
+                                <Row>
+                                    <Col span="18">
+                                    <FormItem label="姓名：">
+                                        <Input readonly v-model.trim="userInfo.usr_nm"></Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="ID：">
+                                        <Input readonly v-model.trim="userInfo.usr_id"></Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="邮箱：">
+                                        <Input readonly v-model.trim="userInfo.email">
+                                        <span slot="append">元/月</span>
+                                        </Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="密码：">
+                                        <Input  placeholder="pwd"
+                                                v-model="buyForm.password"
+                                                type="password">
+                                        <span slot="append">月</span>
+                                        </Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="证件类型：">
+                                        <Input readonly >
+                                        <span slot="append">元</span>
+                                        userInfo.id_nmbr                   </Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="证件：">
+                                        <Input readonly v-model.trim="userInfo.id_nmbr"></Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="电话：">
+                                        <Input readonly v-model.trim="userInfo.tel"></Input>
+                                    </FormItem>
+                                    </Col>
+                                    <Col span="18">
+                                    <FormItem label="地址：">
+                                        <Input readonly v-model.trim="userInfo.addr"></Input>
+                                    </FormItem>
+                                    </Col>
+                                </Row>
+                            </Form>
+                            <!--<form class="lr-form">
+                                <div class="form-cell">
+                                    <input type="text" :value="userInfo.usr_nm">
+                                    <label>姓名</label>
+                                </div>
+                                <div class="form-cell">
+                                    <input type="text" :value="userInfo.usr_id">
+                                    <label>ID</label>
+                                </div>
+                                <div class="form-cell">
+                                    <input type="text" :value="userInfo.email" disabled class="disable-ipt">
+                                    <label>邮箱</label>
+                                </div>
+                                <div class="form-cell">
+                                    <input type="password" value="thisisnotatruepsd" disabled class="disable-ipt">
+                                    <label>密码</label>
+                                </div>
+                                <div class="form-cell">
+                                    <select>
+                                        <option value="1">身份证</option>
+                                        <option value="2">护照</option>
+                                    </select>
+                                    <label>证件类型</label>
+                                </div>
+                                <div class="form-cell">
+                                    <input type="text" :value="userInfo.id_nmbr" disabled class="disable-ipt">
+                                    <label>证件</label>
+                                </div>
+                                <div class="form-cell">
+                                    <input type="text" :value="userInfo.tel">
+                                    <label>电话</label>
+                                </div>
+                                <div class="form-cell">
+                                    <input type="text" :value="userInfo.addr">
+                                    <label>地址</label>
+                                </div>
+                                <div class="form-footer">
+                                    <button class="r-btn r-btn-blue r-btn-s">提交修改</button>
+                                </div>
+                            </form>-->
+                        </div>
+                    </div>
+                </section>
+                <section class="right">
+                    <router-view></router-view>
+                </section>
+            </div>
+            <!--footer-->
+        </div>
+
+    </div>
+
+    <script src="../../dist/myMainPage.bundle.js"></script>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet/less" type="text/css" href="../../css/classes.less">
+    <script src="../../node_modules/less/dist/less.js"></script>
+</body>
+</html>

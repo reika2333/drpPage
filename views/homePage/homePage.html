@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DRP | 主页</title>
+</head>
+<body>
+<div id="app">
+    <!--header-->
+    <app-header :user="userInfo"></app-header>
+    <div class="container">
+        <!--picture-->
+        <app-picture></app-picture>
+        <!--nav-->
+        <nav class="main-nav">
+            <div class="header-content">
+                <div class="head-search">
+                    <form style="height: 50px">
+                        <input type="text"
+                               placeholder="输入作品名或作者名称搜索"
+                               v-model="formData.works_name">
+                        <!--<button class="r-btn r-btn-s r-btn-b-white"-->
+                                <!--@click="loadSearchResult">站内搜索</button>-->
+                        <i-button type="default" ghost @click="searchByString">站内搜索</i-button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!--main-content-->
+        <div class="main-content">
+        <!--<app-recommend :data="recommends"></app-recommend>-->
+            <router-view :data="recommends"></router-view>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../dist/homePage.bundle.js"></script>
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet/less" type="text/css" href="../../css/classes.less">
+<script src="../../node_modules/less/dist/less.js"></script>
+</body>
+</html>
