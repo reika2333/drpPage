@@ -27,11 +27,25 @@ module.exports = {
             { test: /\.scss$/, use: ['style-loader','css-loader','sass-loader']},
             { test: /\.jpeg|png|jpg|bmp|gif$/, use: 'url-loader'},    // 这里可以通过limit值设置base64编码的最高图片大小
             { test: /\.(ttf|woff|eot|svg|woff2)$/, use: 'url-loader'},
-            { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/},    // 配置babel来转换高级ES语法
+            { test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {//如果有这个设置则不用再添加.babelrc文件进行配置
+                        "babelrc": false,// 不采用.babelrc的配置
+                        "plugins": [
+                            "@babel/plugin-syntax-dynamic-import"
+                        ]
+                    }
+                }
+            },    // 配置babel来转换高级ES语法
             { test: /\.vue$/, use: 'vue-loader'}
         ]
     },
     resolve: {
-
+        alias: {
+            '@': path.resolve(__dirname, '../views')
+        },
+        extensions: ['*', '.js', '.vue']
     }
 }

@@ -1,9 +1,9 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-var moment = require('moment')
+// var moment = require('moment')
 
 import 'iview/dist/styles/iview.css';
 import iView from 'iview'

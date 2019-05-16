@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 import VueRouter from 'vue-router'
@@ -42,7 +42,8 @@ var vm = new Vue({
                 gender: '0',
                 addr: 'sfhkaskfhufbcads',
                 id_nmbr: '132332435353254',
-                role_ids: [1,2]    //通过数组判断用户角色
+                role_ids: [1,2],   //通过数组判断用户角色
+                password: '123123123'
             }
         },
         // 2.加载推荐信息
@@ -59,6 +60,7 @@ var vm = new Vue({
     created(){
         this.loadUserInfo();
         this.loadRecommendInfo();
+        console.log(personalRouter)
     },
     components:{
         'app-header': header,

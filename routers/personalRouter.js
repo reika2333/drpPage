@@ -1,8 +1,10 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+
+const _import = require('./_import.js')
 
 export default new VueRouter({
     routes: [
