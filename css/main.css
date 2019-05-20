@@ -55,4 +55,5 @@ footer{
 input{
     border-radius: 5px;
     border: solid thin #ddd;
+    font-size: 14px;
 }

@@ -15,7 +15,7 @@
         <nav class="main-nav">
             <div class="header-content">
                 <div class="head-search">
-                    <form style="height: 50px">
+                    <form style="height: 45px">
                         <input type="text"
                                placeholder="输入作品名或作者名称搜索"
                                v-model="formData.works_name">
@@ -39,5 +39,13 @@
 <link rel="stylesheet" href="../../css/main.css">
 <link rel="stylesheet/less" type="text/css" href="../../css/classes.less">
 <script src="../../node_modules/less/dist/less.js"></script>
+<style>
+    .header-content{
+        height: 50px;
+    }
+    .head-search{
+        line-height: 50px !important;
+    }
+</style>
 </body>
 </html>

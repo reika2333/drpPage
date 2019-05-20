@@ -26,7 +26,20 @@ var vm = new Vue({
     el: '#app',
     data:{
         userInfo: {},
-        recommendInfo: {}
+        recommendInfo: {},
+        certList: [{
+            value: '0',
+            label: '身份证'
+        },{
+            value: '1',
+            label: '户口簿'
+        },{
+            value: '2',
+            label: '护照'
+        },{
+            value: 'x',
+            label: '其他'
+        }]
     },
     methods:{
         // 1.加载个人信息

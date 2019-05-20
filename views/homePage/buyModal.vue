@@ -123,14 +123,14 @@
                 </Col>
                 <Col span="20" offset="2" style="height: 35px;margin-top: 0">
                     <FormItem label-width="0">
-                        <Checkbox v-model="agree" @on-change="toAgree">我同意《数字版权保护授权协议》</Checkbox>
+                        <Checkbox v-model="agree">我同意《数字版权保护授权协议》</Checkbox>
                     </FormItem>
                 </Col>
             </Row>
         </Form>
         <!--线下交易-->
         <Form :label-width="10" v-else-if="current === 2">
-            <Row>
+            <Row v-if="this.orderInfo.info_isvalid_flg === 2">
                 <Col span="16" offset="4" style="height: 80px;">
                     <div style="font-size: 15px;text-align: center">
                         请与卖家联系并付款给卖家<br/>
@@ -140,11 +140,11 @@
                 </Col>
                 <Col span="16" offset="4" style="height: 35px;margin-top: 0;text-align: center">
                     <FormItem label-width="0">
-                        <Button type="primary" ghost="true" size="middle" width="150">我已付款</Button>
+                        <Button type="primary" size="middle" width="150" @click="payed">我已付款</Button>
                     </FormItem>
                 </Col>
             </Row>
-            <Row>
+            <Row v-if="this.orderInfo.info_isvalid_flg === 5">
                 <Col span="16" offset="4" style="height: 40px;">
                     <div style="font-size: 15px;text-align: center">
                         您已向卖家付款，等待卖家确认
@@ -152,11 +152,11 @@
                 </Col>
                 <Col span="16" offset="4" style="height: 35px;margin-top: 0;text-align: center">
                     <FormItem label-width="0">
-                        <Button type="primary" ghost="true" size="middle" width="150">联系卖家</Button>
+                        <Button type="primary" size="middle" width="150">联系卖家</Button>
                     </FormItem>
                 </Col>
             </Row>
-            <Row>
+            <Row v-if="this.orderInfo.info_isvalid_flg === 6">
                 <Col span="16" offset="4" style="height: 40px;">
                     <div style="font-size: 15px;text-align: center">
                         交易完成啦！点击"下一步"去下载作品吧～
@@ -174,8 +174,8 @@
                 </Col>
                 <Col span="16" offset="4" style="height: 35px;margin-top: 0;text-align: center">
                     <FormItem label-width="0">
-                        <Button type="primary" ghost="true" size="middle" width="150">下载作品</Button>
-                        <Button type="primary" ghost="true" size="middle" width="150">下载公钥</Button>
+                        <Button type="primary" size="middle" width="150">下载作品</Button>
+                        <Button type="primary" size="middle" width="150">下载公钥</Button>
                     </FormItem>
                 </Col>
             </Row>
@@ -184,6 +184,7 @@
 </template>
 
 <script>
+    import { newOrder, infoOrderById, deleteOrderById, updateOrderStatus } from '../../api/order.js'
     export default {
         name: "infoModal",
         props: {
@@ -202,13 +203,6 @@
                     works_hdgt: '0.00',       // 作品预估费用
                     type: '',
                 }
-            },
-            current: {
-                type: Number,
-                default: 0
-            },
-            orderInfo: {
-                type: Object
             }
         },
         data: function () {
@@ -218,17 +212,103 @@
                     works_id: this.details.works_id,
                     auth_fee: '0'
                 },
-                agree: false
+                agree: false,
+                orderInfo: {
+                    info_isvalid_flg: -1
+                },
+                current: 0
             }
         },
         methods: {
+            // 计算价格
             countFee(){
-                console.log('进入了计算')
                 this.buyForm.auth_fee = this.details.works_hdgt * this.buyForm.protocol_deadline
-                this.$emit('onOrderChange',this.buyForm)
             },
-            toAgree(){
-                this.$emit('onAgree',this.agree)
+            // 提交订单
+            submitForm(){
+                newOrder(this.buyForm).then(res => {
+
+                })
+            },
+            // 同意协议
+            submitAgree(){
+                updateOrderStatus({
+                    agmt_id: this.orderInfo.agmt_id,
+                    info_isvalid_flg: 2
+                }).then(res => {
+
+                })
+            },
+            // 取消订单
+            cancelOrder(){
+                deleteOrderById(this.orderInfo.agmt_id).then(res => {
+
+                })
+            },
+            // 订单详情
+            orderDetail(){
+                infoOrderById(this.orderInfo.agmt_id).then(res => {
+
+                })
+            },
+            // 已付款
+            payed(){
+                updateOrderStatus({
+                    agmt_id: this.orderInfo.agmt_id,
+                    info_isvalid_flg: 5
+                }).then(res => {
+
+                })
+            },
+            // 修改当前步骤值
+            currentModify(value, text){
+                this.$emit('currentChange', value, text)
+                this.current = value
+            },
+            // 购买-下一步
+            toNext(){
+                if(this.orderInfo.info_isvalid_flg === -1){
+                    // 验证购买时限是否为空
+                    if(this.buyForm.protocol_deadline) {
+                        // 1.调用插入订单接口
+                        // this.submitForm()
+                        // 2.调用订单详情接口,将返回数据赋值给orderInfo
+                        // this.orderDetail()
+                        this.orderInfo.info_isvalid_flg = 0
+                        this.currentModify(1,'下一步')
+                    }else{
+                        this.$Message.error('请先填写购买期限');
+                    }
+                }else if(this.orderInfo.info_isvalid_flg === 0){
+                    // 验证是否勾选同意
+                    if(this.agree) {
+                        // 1.调用同意接口
+                        // this.submitAgree()
+                        // 2.调用订单详情接口,将返回数据赋值给orderInfo
+                        // this.orderDetail()
+                        this.orderInfo.info_isvalid_flg = 2
+                        this.currentModify(2, '去下载')
+                    }else{
+                        this.$Message.error('请先同意协议内容')
+                    }
+                }else if(this.orderInfo.info_isvalid_flg === 2){
+                    // 说明还没有付款
+                    this.$Message.error('您还没有向卖家付款呢');
+                }else if(this.orderInfo.info_isvalid_flg === 5){
+                    // 说明已付款，但对方还没有确认
+                    this.$Message.error('卖家还未确认收款，请耐心等待或联系卖家')
+                }else if(this.orderInfo.info_isvalid_flg === 6){
+                    // 双方都已确认
+                    this.currentModify(3, '完成')
+                }
+            },
+            // 清除表单
+            clearForm(){
+                this.buyForm = {
+                    protocol_deadline: '',
+                    works_id: this.details.works_id,
+                    auth_fee: '0'
+                }
             }
         }
     }

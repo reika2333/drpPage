@@ -9,7 +9,7 @@
             <li v-if="author"><router-link to="/author">作者</router-link></li>
             <li v-if="agent"><router-link to="/agent">代理商</router-link></li>
             <li><router-link to="/charactorApply">新的角色</router-link></li>
-            <li><button class="r-btn r-btn-s r-btn-b-white">下载我的公钥</button></li>
+            <li><Button type="default" ghost>下载我的公钥</Button></li>
         </ul>
         <div style="clear: both"></div>
     </nav>

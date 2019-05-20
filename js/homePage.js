@@ -22,9 +22,13 @@ import mainNav from '../views/homePage/mainNav.vue'
 import recommendInfo from '../views/homePage/recommendInfo.vue'
 
 import '../dist/1.bundle.js'
+import '../dist/5.bundle.js'
 import '../dist/6.bundle.js'
 
 import homePageRouter from '../routers/homePageRouter.js'
+
+// 引入接口调用的方法
+import { findPage } from '../api/works.js'
 
 var vm = new Vue({
     el: '#app',
@@ -158,20 +162,24 @@ var vm = new Vue({
         }
     },
     methods: {
+        // 加载搜索结果-全部
         loadSearchResult(){
-            this.$http.post('http://192.168.1.104:8080/drp/showRecommendInfo',
-                JSON.stringify(this.formData),
-                {emulateJSON: true}).then(res => {
-                    console.log(res)
-                    this.recommends.video = res.body.dataThree;
-                    this.recommends.issue = res.body.dataTwo;
-                    this.recommends.image = res.body.dataOne;
-                    this.recommends.music = res.body.dataFour;
-            })
+            // findPage(this.formData).then(res => {
+            //         console.log(res)
+            //         this.recommends.video = res.body.dataThree;
+            //         this.recommends.issue = res.body.dataTwo;
+            //         this.recommends.image = res.body.dataOne;
+            //         this.recommends.music = res.body.dataFour;
+            // })
         },
         searchByString(){
-            // this.loadSearchResult()
-            this.$router.push({path: '/searchResult'})
+            console.log(this.formData)
+            this.$router.push({
+                path: '/searchResult',
+                query: {
+                    works_name: this.formData.works_name
+                }
+            })
         }
     },
     components: {

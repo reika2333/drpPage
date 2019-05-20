@@ -85,7 +85,7 @@
     position: absolute;
     left: 410px;
     display: inline;
-    top: -13px;
+    top: 0px;
     height: 50px !important;
     li{
       line-height: 50px;
@@ -136,7 +136,7 @@
 
 //router-link
 .link_active{
-  height: 47px;
+  height: 50px;
   border-bottom: solid 3px blue;
 }
 
@@ -244,7 +244,7 @@
 .header-content{
   width: 1350px;
   margin: auto;
-  height: 50px;
+  height: 60px;
   h2{
     display: inline-block;
     line-height: 60px;
@@ -262,7 +262,7 @@
   .head-search{
     display: inline-block;
     float: right;
-    line-height: 50px;
+    line-height: 60px;
     form{
       position: relative;
       input{
@@ -280,6 +280,16 @@
         margin-right: 15px;
         background-color: rgba(255,255,255,0.2);
         border: solid thin rgba(255,255,255,0.2);
+        height: 32px;
+        width: 100px;
+        padding: 0;
+        margin-top: -1px;
+        margin-left: 5px;
+        &:hover{
+          background-color: white;
+          border: white;
+          color: cornflowerblue;
+        }
       }
     }
   }
@@ -386,4 +396,31 @@
 }
 .ivu-collapse-simple{
   border: none !important;
+}
+.ivu-col{
+  height: 45px;
+}
+.ivu-btn-primary{
+  background-color: cornflowerblue;
+  border: cornflowerblue;
+  //font-size: 14px;
+}
+.ivu-btn-ghost{
+  font-size: 14px;
+}
+.ivu-btn-ghost:hover{
+  background-color: white;
+  border: white;
+  color: cornflowerblue;
+  font-size: 14px;
+}
+.ivu-modal-header{
+   .ivu-row{
+     height: 25px;
+   }
+ }
+.ivu-modal-footer{
+  .ivu-row{
+    height: 35px;
+  }
 }

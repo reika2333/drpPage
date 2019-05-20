@@ -6,7 +6,7 @@
             <div class="head-search">
                 <form action="">
                     <input type="text" placeholder="输入作品名或作者名称搜索">
-                    <button class="btn btn-s btn-b-white">站内搜索</button>
+                    <Button type="default" ghost>站内搜索</Button>
                 </form>
             </div>
         </div>
