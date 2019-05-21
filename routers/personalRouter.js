@@ -30,6 +30,14 @@ export default new VueRouter({
         { path: '/worksRegister',
             name: 'worksRegister',
             component: () => import('../views/personal/worksRegister.vue')
+        },
+        { path: '/emailPasswordChange',
+            name: 'emailPasswordChange',
+            component: () => import('../views/personal/emailChange.vue')
+        },
+        { path: '/publicKey',
+            name: 'publicKey',
+            component: () => import('../views/personal/publicKey.vue')
         }
     ],
     linkActiveClass: 'link_active'

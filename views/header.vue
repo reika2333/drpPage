@@ -5,8 +5,8 @@
             <h3><a href="../homePage/homePage.html">主页</a></h3>
             <div class="head-search">
                 <form action="">
-                    <input type="text" placeholder="输入作品名或作者名称搜索">
-                    <Button type="default" ghost>站内搜索</Button>
+                    <input type="text" placeholder="输入作品名或作者名称搜索" v-model="publicKey">
+                    <Button type="default" ghost @click="search">站内搜索</Button>
                 </form>
             </div>
         </div>
@@ -15,7 +15,17 @@
 
 <script>
     export default {
-        name: "header"
+        name: "header",
+        data: function(){
+            return {
+                publicKey: ''
+            }
+        },
+        methods: {
+            search(){
+                window.location.href = '../homePage/homePage.html#/searchResult?works_name=' + this.publicKey
+            }
+        }
     }
 </script>
 

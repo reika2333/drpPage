@@ -21,6 +21,7 @@ import pic from '../views/picture.vue'
 import mainNav from '../views/homePage/mainNav.vue'
 import recommendInfo from '../views/homePage/recommendInfo.vue'
 
+import '../dist/0.bundle.js'
 import '../dist/1.bundle.js'
 import '../dist/5.bundle.js'
 import '../dist/6.bundle.js'

@@ -19,6 +19,7 @@ import '../dist/3.bundle.js'
 import '../dist/4.bundle.js'
 import '../dist/5.bundle.js'
 import '../dist/6.bundle.js'
+import '../dist/7.bundle.js'
 
 import personalRouter from '../routers/personalRouter.js'
 
@@ -39,8 +40,10 @@ var vm = new Vue({
         },{
             value: 'x',
             label: '其他'
-        }]
+        }],
+        publicKey: ''
     },
+    router: personalRouter,
     methods:{
         // 1.加载个人信息
         loadUserInfo(){
@@ -59,26 +62,26 @@ var vm = new Vue({
                 password: '123123123'
             }
         },
-        // 2.加载推荐信息
-        loadRecommendInfo(){
-            this.recommendInfo = {
-
-            }
+        toChangeEmail(){
+            this.$router.push({
+                path: '/emailPasswordChange'
+            })
         },
-        // 3.搜索
-        search(){
-
+        toPublicKey(){
+            this.$router.push({
+                path: '/publicKey',
+                query: {
+                    keyWord: this.publicKey
+                }
+            })
         }
     },
     created(){
-        this.loadUserInfo();
-        this.loadRecommendInfo();
-        console.log(personalRouter)
+        this.loadUserInfo()
     },
     components:{
         'app-header': header,
         'app-picture': pic,
         'app-main-nav': mainNav,
-    },
-    router: personalRouter
+    }
 })

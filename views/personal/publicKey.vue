@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import { pubKeySearch } from '../../api/other.js'
     export default {
         name: "publicKey",
         data: function () {
@@ -59,6 +60,18 @@
                         }
                     }
                 ],
+                formData: {
+                    keyword: this.$route.query.keyWord,
+                    start: 1,
+                    offset: 15
+                }
+            }
+        },
+        methods: {
+            search(){
+                pubKeySearch(this.formData).then(res => {
+
+                })
             }
         }
     }
